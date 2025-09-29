@@ -1,0 +1,62 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}AuctionsSpot | Create Listing{% endblock %}
+
+
+{% block body %}
+    <h2 class="text-primary mb-4 ">Create New Listing</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="card bg-light shadow-sm mb-4">
+        <div class="card-body">
+            <form action="{% url 'create' %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" maxlength="64" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" maxlength="256" required></textarea>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image URL</label>
+                    <input type="url" class="form-control" id="image" name="image" maxlength="256" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="price" class="form-label">Starting Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" id="price" name="price" step="0.01" min="0.01" required>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-select" id="category" name="category" required>
+                        <option value="" selected disabled>Choose a category...</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.category }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Create Listing</button>
+                    <a href="{% url 'index' %}" class="btn btn-outline-danger">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

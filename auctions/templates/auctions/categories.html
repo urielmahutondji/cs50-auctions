@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}AuctionsSpot | Categories{% endblock %}
+
+
+{% block body %}
+    <h2 class="text-primary mb-4">Categories</h2>
+    
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for category in categories %}
+            <div class="col">
+                <a href="{% url 'category' category.id %}" class="card h-100 bg-light shadow-sm hover-card btn btn-outline-primary stretched-link">
+                    <span class="card-body">
+                        <h3 class="card-title h5 text-primary">{{ category.category }}</h3>
+                    </span>
+                </a>
+            </div>
+        {% empty %}
+            <div class="col-12 text-center">
+                <p class="lead text-muted">No categories available.</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

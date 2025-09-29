@@ -1,0 +1,54 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}AuctionsSpot | Watchlist{% endblock %}
+
+{% block body %}
+    <h2 class="text-primary mb-4">My Watchlist</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="container px-0 mb-4">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for watch in watchlist %}
+                <div class="col">
+                    <div class="card h-100 bg-light shadow-sm">
+                        <div class="row g-0">
+                            <div class="col-4">
+                                <img src="{{ watch.listing.image }}" class="img-fluid rounded-start" style="height: 200px; width: 100%; object-fit: cover;" alt="{{ watch.listing.title }}">
+                            </div>
+                            <div class="col-8">
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="card-title text-primary h5">{{ watch.listing.title }}</h3>
+                                    <p class="card-text text-muted small">{{ watch.listing.description|truncatechars:100 }}</p>
+                                    <div class="mt-auto">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-muted small">Current Price:</span>
+                                            <span class="badge bg-success px-2 py-1">${{ watch.listing.current_price }}</span>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <a href="{% url 'details' watch.listing.id %}" class="btn btn-outline-primary btn-sm">See details</a>
+                                            <form action="{% url 'remove_watch' watch.id %}" method="POST" class="m-0">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">Remove</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12  py-1">
+                    <p class=" text-muted">Your watchlist is empty.</p>
+                    <a href="{% url 'index' %}" class="btn btn-primary">Browse Listings</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
