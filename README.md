@@ -71,7 +71,7 @@ L’objectif est de concevoir une application web de type **eBay**, permettant a
 ### 1. Cloner le projet
 
 ```bash
-git clone https://github.com/USERNAME/commerce.git
+git clone https://github.com/urielmahutondji/cs50-auctions.git
 cd commerce
 ```
 
