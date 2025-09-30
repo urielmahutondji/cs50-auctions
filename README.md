@@ -72,7 +72,7 @@ L’objectif est de concevoir une application web de type **eBay**, permettant a
 
 ```bash
 git clone https://github.com/urielmahutondji/cs50-auctions.git
-cd commerce
+cd cs50-auctions
 ```
 
 ### 2. Créer et activer un environnement virtuel
